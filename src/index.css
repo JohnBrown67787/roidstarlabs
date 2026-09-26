@@ -1814,3 +1814,747 @@ img {
   }
 }
 
+/* ========================================================
+   PAGE HERO BANNERS (ABOUT, TESTIMONIAL, CONTACT)
+   ======================================================== */
+.page-hero-banner {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 100px 0 70px;
+  text-align: center;
+  position: relative;
+  color: #ffffff;
+}
+
+.page-hero-title {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.page-hero-breadcrumbs {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
+}
+
+.page-hero-breadcrumbs .active {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+/* ========================================================
+   ABOUT US PAGE STYLING
+   ======================================================== */
+.about-intro-section {
+  padding: 60px 0 50px;
+  background-color: #ffffff;
+}
+
+.about-intro-header {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto 50px;
+}
+
+.about-clinic-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #1a202c;
+}
+
+.about-intro-lead {
+  font-size: 15.5px;
+  line-height: 1.85;
+  color: #4a5568;
+}
+
+.about-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 30px;
+}
+
+.about-pillar-card {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 30px 24px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.about-pillar-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+}
+
+.pillar-icon-box {
+  width: 52px;
+  height: 52px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.pillar-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 12px;
+}
+
+.pillar-text {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #64748b;
+}
+
+.about-blue-section {
+  background-color: #0b346a;
+  color: #ffffff;
+  padding: 70px 0;
+}
+
+.about-blue-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.about-blue-heading {
+  font-size: 26px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.about-blue-p {
+  font-size: 14.5px;
+  line-height: 1.8;
+  color: #cbd5e1;
+  margin-bottom: 16px;
+}
+
+.about-highlights-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 24px 0 30px;
+}
+
+.highlight-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #f1f5f9;
+}
+
+.about-explore-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--primary-color);
+  color: #ffffff;
+  padding: 12px 28px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: background-color 0.2s;
+}
+
+.about-explore-btn:hover {
+  background-color: var(--primary-hover);
+}
+
+.about-blue-image-frame img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+  object-fit: cover;
+}
+
+/* ========================================================
+   TESTIMONIAL PAGE STYLING
+   ======================================================== */
+.testimonial-intro-section {
+  padding: 60px 15px 40px;
+  text-align: center;
+}
+
+.testimonial-main-heading {
+  font-size: 28px;
+  font-weight: 800;
+  color: #111;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.testimonial-intro-text {
+  font-size: 15.5px;
+  line-height: 1.8;
+  color: #555;
+  max-width: 860px;
+  margin: 0 auto 50px;
+}
+
+.testimonials-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  text-align: center;
+}
+
+.testimonial-speech-card {
+  background-color: #ffffff;
+  border: 1px solid #eef0f2;
+  border-radius: 8px;
+  padding: 36px 26px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.testimonial-speech-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+.testimonial-avatar-wrapper {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 18px;
+  border: 3px solid #eef2f6;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.testimonial-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.testimonial-rating-row {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 10px;
+}
+
+.testimonial-client-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: #00aae7;
+  margin-bottom: 4px;
+}
+
+.testimonial-client-tag {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #888;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.testimonial-quote-text {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: #4a5568;
+  font-style: italic;
+}
+
+.testimonial-form-section {
+  padding: 40px 0 80px;
+}
+
+.testimonial-form-card {
+  max-width: 760px;
+  margin: 0 auto;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 36px;
+}
+
+.form-card-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #1a202c;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.form-card-subtitle {
+  font-size: 14px;
+  color: #64748b;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.testimonial-submit-btn {
+  width: 100%;
+  background-color: var(--primary-color);
+  color: #ffffff;
+  padding: 14px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+  transition: background-color 0.2s;
+}
+
+.testimonial-submit-btn:hover {
+  background-color: var(--primary-hover);
+}
+
+.review-success-box {
+  text-align: center;
+  padding: 24px;
+}
+
+/* ========================================================
+   CONTACT US PAGE STYLING
+   ======================================================== */
+.contact-main-section {
+  padding: 60px 15px 80px;
+}
+
+.contact-intro-header {
+  text-align: center;
+  max-width: 860px;
+  margin: 0 auto 36px;
+}
+
+.contact-main-heading {
+  font-size: 30px;
+  font-weight: 800;
+  color: #111;
+}
+
+.contact-intro-text {
+  font-size: 15.5px;
+  line-height: 1.8;
+  color: #555;
+}
+
+.contact-team-showcase {
+  max-width: 900px;
+  margin: 0 auto 50px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+.medical-team-img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  display: block;
+}
+
+.contact-grid-container {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 40px;
+}
+
+.contact-form-box {
+  background-color: #ffffff;
+  border: 1px solid #eef0f2;
+  border-radius: 8px;
+  padding: 34px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+}
+
+.contact-form-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 8px;
+}
+
+/* WPForms styling matching WordPress plugin */
+.wpforms-replica-form .form-group {
+  margin-bottom: 18px;
+}
+
+.wpforms-field-label {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 6px;
+}
+
+.wpforms-required {
+  color: #d9381e;
+  margin-left: 2px;
+}
+
+.wpforms-sublabel {
+  display: block;
+  font-size: 11.5px;
+  color: #718096;
+  margin-top: 4px;
+}
+
+.wpforms-input {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  font-size: 14.5px;
+  color: #1a202c;
+  background-color: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.wpforms-input:focus {
+  outline: none;
+  border-color: #066aab;
+  box-shadow: 0 0 0 3px rgba(6, 106, 171, 0.15);
+}
+
+textarea.wpforms-input {
+  height: auto;
+  padding: 12px 14px;
+  line-height: 1.5;
+}
+
+.wpforms-submit-btn {
+  background-color: #066aab;
+  color: #ffffff;
+  padding: 12px 30px;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.wpforms-submit-btn:hover {
+  background-color: #05558a;
+}
+
+.contact-info-card {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 34px;
+}
+
+.contact-card-heading {
+  font-size: 19px;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 6px;
+}
+
+.contact-detail-items {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-detail-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.detail-icon-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: #e8f5e9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contact-detail-item strong {
+  font-size: 13.5px;
+  color: #1a202c;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.contact-detail-item p {
+  font-size: 14px;
+  color: #4a5568;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.contact-whatsapp-box {
+  margin-top: 26px;
+  padding: 18px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+}
+
+.whatsapp-inline-btn {
+  display: inline-block;
+  background-color: #25D366;
+  color: #ffffff;
+  font-size: 13.5px;
+  font-weight: 700;
+  padding: 8px 18px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.whatsapp-inline-btn:hover {
+  opacity: 0.9;
+}
+
+/* ========================================================
+   CARD PAYMENT PAGE STYLING
+   ======================================================== */
+.payment-layout-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 36px;
+  align-items: flex-start;
+}
+
+.payment-form-card {
+  background-color: #ffffff;
+  border: 1px solid #eef0f2;
+  border-radius: 8px;
+  padding: 38px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.payment-page-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 8px;
+}
+
+.payment-page-desc {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.payment-summary-card {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 28px;
+}
+
+.summary-card-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 6px;
+}
+
+.summary-items-scroll {
+  max-height: 240px;
+  overflow-y: auto;
+  margin-bottom: 16px;
+}
+
+.summary-cart-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid #eef2f6;
+}
+
+.summary-thumb {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  background-color: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 2px;
+}
+
+.summary-desc {
+  flex: 1;
+}
+
+.summary-name {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #222;
+  line-height: 1.3;
+}
+
+.summary-qty {
+  font-size: 11.5px;
+  color: #888;
+}
+
+.summary-price {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #111;
+}
+
+.summary-divider {
+  height: 1px;
+  background-color: #e2e8f0;
+  margin: 12px 0;
+}
+
+.summary-subtotal-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13.5px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.summary-final-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 17px;
+  font-weight: 800;
+  color: #111;
+  padding-top: 10px;
+  border-top: 2px solid #cbd5e1;
+  margin-top: 10px;
+}
+
+.summary-guarantee-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px;
+  background-color: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #166534;
+}
+
+.payment-receipt-card {
+  max-width: 640px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 44px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  text-align: center;
+}
+
+.receipt-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 8px;
+}
+
+.receipt-subtitle {
+  font-size: 14.5px;
+  color: #64748b;
+  margin-bottom: 28px;
+}
+
+.receipt-details-box {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 20px;
+  text-align: left;
+  margin-bottom: 28px;
+}
+
+.receipt-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 14px;
+  color: #4a5568;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.receipt-row.total {
+  border-bottom: none;
+  font-size: 17px;
+  font-weight: 800;
+  color: #111;
+  padding-top: 14px;
+}
+
+.receipt-amount {
+  color: #229409;
+}
+
+.receipt-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--primary-color);
+  color: #ffffff;
+  padding: 14px 32px;
+  font-size: 14.5px;
+  font-weight: 700;
+  border-radius: 5px;
+  text-transform: uppercase;
+  transition: background-color 0.2s;
+}
+
+.receipt-btn-primary:hover {
+  background-color: var(--primary-hover);
+}
+
+@media (max-width: 900px) {
+  .about-pillars-grid {
+    grid-template-columns: 1fr;
+  }
+  .about-blue-grid {
+    grid-template-columns: 1fr;
+  }
+  .testimonials-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .contact-grid-container {
+    grid-template-columns: 1fr;
+  }
+  .payment-layout-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+

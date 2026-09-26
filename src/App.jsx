@@ -13,6 +13,10 @@ import {
   TESTIMONIALS 
 } from './data/homeData';
 import { isSupabaseConfigured, fetchSupabaseProducts, createSupabaseOrder } from './supabase';
+import AboutUsPage from './components/AboutUsPage';
+import TestimonialPage from './components/TestimonialPage';
+import ContactUsPage from './components/ContactUsPage';
+import CardPaymentPage from './components/CardPaymentPage';
 import { 
   Search, 
   ShoppingBasket, 
@@ -441,16 +445,21 @@ export default function App() {
                 Shop
               </a>
             </li>
-            <li className={`nav-item ${['privacy', 'refund', 'terms'].includes(currentPageView) ? 'active' : ''}`}>
+            <li className={`nav-item ${['about', 'privacy', 'refund', 'terms'].includes(currentPageView) ? 'active' : ''}`}>
               <a 
                 href="#about" 
                 className="nav-link" 
                 style={{ display: 'flex', alignItems: 'center', gap: '4px' }}
-                onClick={(e) => { e.preventDefault(); navigateTo('privacy'); }}
+                onClick={(e) => { e.preventDefault(); navigateTo('about'); }}
               >
                 About Us <ChevronDown size={14} />
               </a>
               <ul className="nav-dropdown-menu">
+                <li className="nav-dropdown-item">
+                  <a href="#about" onClick={(e) => { e.preventDefault(); navigateTo('about'); }}>
+                    About Us
+                  </a>
+                </li>
                 <li className="nav-dropdown-item">
                   <a href="#privacy" onClick={(e) => { e.preventDefault(); navigateTo('privacy'); }}>
                     Privacy Policy
@@ -1004,313 +1013,36 @@ export default function App() {
         </div>
       )}
 
-      {/* VIEW C: CARD PAYMENT / CHECKOUT */}
-      {currentPageView === 'payment' && (
-        <div className="container checkout-page-container">
-          {orderComplete ? (
-            <div style={{ 
-              maxWidth: '600px', 
-              margin: '40px auto', 
-              textAlign: 'center', 
-              background: '#fff', 
-              padding: '40px', 
-              borderRadius: '8px',
-              border: '1px solid #e2e8f0',
-              boxShadow: '0 8px 30px rgba(0,0,0,0.06)'
-            }}>
-              <CheckCircle2 size={64} color="#229409" style={{ margin: '0 auto 16px' }} />
-              <h2 style={{ fontSize: '26px', fontWeight: '800', color: '#111', marginBottom: '8px' }}>
-                Thank You For Your Order!
-              </h2>
-              <p style={{ color: '#666', marginBottom: '20px' }}>
-                Your order <strong>#{orderComplete.id}</strong> has been received and securely synced to Supabase.
-              </p>
-              <div style={{ backgroundColor: '#f8fafc', padding: '16px', borderRadius: '6px', textAlign: 'left', marginBottom: '24px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                  <span>Amount Paid:</span>
-                  <strong>${orderComplete.total.toFixed(2)}</strong>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <span>Confirmation sent to:</span>
-                  <strong>{orderComplete.email}</strong>
-                </div>
-              </div>
-              <button 
-                className="hero-cta-btn" 
-                onClick={() => { setOrderComplete(null); navigateTo('shop'); }}
-              >
-                Continue Shopping
-              </button>
-            </div>
-          ) : (
-            <div className="checkout-grid">
-              {/* Form */}
-              <div className="checkout-form-box">
-                <h2 className="checkout-section-title">Shipping &amp; Billing Details</h2>
-                <form onSubmit={handleFinalOrderSubmit}>
-                  <div className="form-row-2">
-                    <div className="form-group">
-                      <label>First Name *</label>
-                      <input 
-                        type="text" 
-                        required 
-                        className="form-control-input" 
-                        value={checkoutData.firstName}
-                        onChange={(e) => setCheckoutData({...checkoutData, firstName: e.target.value})}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label>Last Name *</label>
-                      <input 
-                        type="text" 
-                        required 
-                        className="form-control-input" 
-                        value={checkoutData.lastName}
-                        onChange={(e) => setCheckoutData({...checkoutData, lastName: e.target.value})}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="form-row-2">
-                    <div className="form-group">
-                      <label>Email Address *</label>
-                      <input 
-                        type="email" 
-                        required 
-                        className="form-control-input" 
-                        value={checkoutData.email}
-                        onChange={(e) => setCheckoutData({...checkoutData, email: e.target.value})}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label>Phone Number *</label>
-                      <input 
-                        type="tel" 
-                        required 
-                        className="form-control-input" 
-                        value={checkoutData.phone}
-                        onChange={(e) => setCheckoutData({...checkoutData, phone: e.target.value})}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="form-group">
-                    <label>Street Address *</label>
-                    <input 
-                      type="text" 
-                      required 
-                      className="form-control-input" 
-                      value={checkoutData.address}
-                      onChange={(e) => setCheckoutData({...checkoutData, address: e.target.value})}
-                    />
-                  </div>
-
-                  <div className="form-row-3">
-                    <div className="form-group">
-                      <label>City *</label>
-                      <input 
-                        type="text" 
-                        required 
-                        className="form-control-input" 
-                        value={checkoutData.city}
-                        onChange={(e) => setCheckoutData({...checkoutData, city: e.target.value})}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label>State *</label>
-                      <input 
-                        type="text" 
-                        required 
-                        className="form-control-input" 
-                        value={checkoutData.state}
-                        onChange={(e) => setCheckoutData({...checkoutData, state: e.target.value})}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label>ZIP *</label>
-                      <input 
-                        type="text" 
-                        required 
-                        className="form-control-input" 
-                        value={checkoutData.zip}
-                        onChange={(e) => setCheckoutData({...checkoutData, zip: e.target.value})}
-                      />
-                    </div>
-                  </div>
-
-                  <h2 className="checkout-section-title" style={{ marginTop: '28px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <Lock size={18} color="#229409" />
-                      <span>Card Payment Information</span>
-                    </div>
-                  </h2>
-
-                  <div className="form-group">
-                    <label>Card Number *</label>
-                    <div style={{ position: 'relative' }}>
-                      <input 
-                        type="text" 
-                        required 
-                        placeholder="•••• •••• •••• ••••" 
-                        maxLength="19"
-                        className="form-control-input" 
-                        value={checkoutData.cardNumber}
-                        onChange={(e) => setCheckoutData({...checkoutData, cardNumber: e.target.value})}
-                      />
-                      <CreditCard size={18} color="#888" style={{ position: 'absolute', right: '12px', top: '14px' }} />
-                    </div>
-                  </div>
-
-                  <div className="form-row-2">
-                    <div className="form-group">
-                      <label>Expiry Date (MM/YY) *</label>
-                      <input 
-                        type="text" 
-                        required 
-                        placeholder="MM/YY" 
-                        maxLength="5"
-                        className="form-control-input" 
-                        value={checkoutData.cardExp}
-                        onChange={(e) => setCheckoutData({...checkoutData, cardExp: e.target.value})}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label>Security Code (CVC) *</label>
-                      <input 
-                        type="password" 
-                        required 
-                        placeholder="•••" 
-                        maxLength="4"
-                        className="form-control-input" 
-                        value={checkoutData.cardCvc}
-                        onChange={(e) => setCheckoutData({...checkoutData, cardCvc: e.target.value})}
-                      />
-                    </div>
-                  </div>
-
-                  <button type="submit" className="pay-submit-btn">
-                    Place Order (${cartTotal.toFixed(2)})
-                  </button>
-                </form>
-              </div>
-
-              {/* Order Summary */}
-              <div className="checkout-summary-box">
-                <h3 style={{ fontSize: '18px', fontWeight: '800', marginBottom: '16px', color: '#111' }}>
-                  Your Order ({cartCount} items)
-                </h3>
-                {cart.length === 0 ? (
-                  <p style={{ color: '#777', padding: '16px 0' }}>No items in cart.</p>
-                ) : (
-                  <div>
-                    {cart.map(item => (
-                      <div key={item.id} className="summary-item-row">
-                        <span>{item.name} × {item.quantity}</span>
-                        <strong>${(item.price * item.quantity).toFixed(2)}</strong>
-                      </div>
-                    ))}
-                    <div className="summary-item-row" style={{ marginTop: '12px' }}>
-                      <span>Subtotal</span>
-                      <span>${cartTotal.toFixed(2)}</span>
-                    </div>
-                    <div className="summary-item-row">
-                      <span>Shipping (US Domestic)</span>
-                      <span style={{ color: '#229409', fontWeight: 'bold' }}>FREE</span>
-                    </div>
-                    <div className="summary-total-row">
-                      <span>Total:</span>
-                      <span>${cartTotal.toFixed(2)}</span>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-        </div>
+      {/* VIEW C: ABOUT US */}
+      {currentPageView === 'about' && (
+        <AboutUsPage onNavigateToShop={() => navigateTo('shop')} />
       )}
 
       {/* VIEW D: TESTIMONIALS */}
       {currentPageView === 'testimonial' && (
-        <div className="container" style={{ padding: '50px 15px' }}>
-          <h1 style={{ fontSize: '32px', fontWeight: '900', color: '#111', textAlign: 'center', marginBottom: '12px' }}>
-            Customer Testimonials
-          </h1>
-          <p style={{ textAlign: 'center', color: '#666', maxWidth: '600px', margin: '0 auto 30px' }}>
-            Real reviews and feedback from verified athletes and clients who rely on Roidstarlabs.
-          </p>
-          <div className="testimonials-grid">
-            {TESTIMONIALS.map(t => (
-              <div key={t.id} className="testimonial-card">
-                <div className="star-rating" style={{ marginBottom: '12px' }}>
-                  {[...Array(t.rating)].map((_, i) => (
-                    <Star key={i} size={16} fill="#f1a90d" />
-                  ))}
-                </div>
-                <p style={{ fontStyle: 'italic', color: '#444', lineHeight: '1.7', flex: '1' }}>
-                  "{t.comment}"
-                </p>
-                <div className="testimonial-author">{t.name}</div>
-                <div className="testimonial-date">{t.date}</div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <TestimonialPage 
+          onNavigateToShop={() => navigateTo('shop')} 
+          onShowToast={showToast} 
+        />
       )}
 
       {/* VIEW E: CONTACT US */}
       {currentPageView === 'contact' && (
-        <div className="container" style={{ padding: '50px 15px' }}>
-          <h1 style={{ fontSize: '32px', fontWeight: '900', color: '#111', textAlign: 'center', marginBottom: '30px' }}>
-            Contact Us
-          </h1>
-          <div className="checkout-grid">
-            <div className="checkout-form-box">
-              <h2 className="checkout-section-title">Send Us a Message</h2>
-              <form onSubmit={(e) => { e.preventDefault(); showToast('Message sent! We will reply within 24 hours.'); }}>
-                <div className="form-group">
-                  <label>Your Name *</label>
-                  <input type="text" required className="form-control-input" />
-                </div>
-                <div className="form-group">
-                  <label>Your Email *</label>
-                  <input type="email" required className="form-control-input" />
-                </div>
-                <div className="form-group">
-                  <label>Subject *</label>
-                  <input type="text" required className="form-control-input" />
-                </div>
-                <div className="form-group">
-                  <label>Message *</label>
-                  <textarea rows="5" required className="form-control-input"></textarea>
-                </div>
-                <button type="submit" className="pay-submit-btn">Send Message</button>
-              </form>
-            </div>
-            <div className="checkout-summary-box">
-              <h3 style={{ fontSize: '18px', fontWeight: '800', marginBottom: '18px', color: '#111' }}>
-                Customer Support Information
-              </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', fontSize: '14px', color: '#555' }}>
-                <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                  <Mail size={18} color="#229409" />
-                  <span>Email: <a href="mailto:info@roidstarlabs.com" style={{ color: '#229409', fontWeight: 'bold' }}>info@roidstarlabs.com</a></span>
-                </div>
-                <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                  <Phone size={18} color="#229409" />
-                  <span>Telephone: (719) 246-6260</span>
-                </div>
-                <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                  <MapPin size={18} color="#229409" />
-                  <span>Address: USA Domestic Shipping</span>
-                </div>
-                <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                  <Clock size={18} color="#229409" />
-                  <span>Hours: Monday – Saturday (8:00 AM – 8:00 PM EST)</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ContactUsPage 
+          onNavigateToShop={() => navigateTo('shop')} 
+          onShowToast={showToast} 
+        />
+      )}
+
+      {/* VIEW F: CARD PAYMENT */}
+      {currentPageView === 'payment' && (
+        <CardPaymentPage 
+          cart={cart}
+          cartTotal={cartTotal}
+          onClearCart={() => setCart([])}
+          onNavigateToShop={() => navigateTo('shop')}
+          onShowToast={showToast}
+        />
       )}
 
       {/* VIEW F: POLICY PAGES */}
@@ -1463,7 +1195,13 @@ export default function App() {
       <div className="footer-dark-section">
         <div className="container footer-dark-grid">
           <div>
-            <h4 className="footer-widget-heading" style={{ color: '#fff' }}>About Us</h4>
+            <h4 
+              className="footer-widget-heading" 
+              style={{ color: '#fff', cursor: 'pointer' }}
+              onClick={() => navigateTo('about')}
+            >
+              About Us
+            </h4>
             <div className="footer-divider"></div>
             <p className="footer-about-text">
               We believe accessible, trustworthy health information can make managing health an empowering experience. That's why our Medical Knowledge Team creates original content that’s peer-reviewed, regularly updated, and easy to understand.
