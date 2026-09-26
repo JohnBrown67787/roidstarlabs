@@ -119,6 +119,7 @@ export default function App() {
     setCurrentPageView(view);
     if (category !== null) {
       setActiveCategoryFilter(category);
+      setCatalogPage(1);
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -183,16 +184,52 @@ export default function App() {
     });
   };
 
+  // Map of category id to all matching slugs (including children)
+  const categorySlugMap = useMemo(() => {
+    const map = {};
+    CATEGORIES.forEach(cat => {
+      const childSlugs = cat.children ? cat.children.map(c => c.id) : [];
+      map[cat.id] = [cat.id, ...childSlugs];
+      if (cat.children) {
+        cat.children.forEach(sub => {
+          map[sub.id] = [sub.id];
+        });
+      }
+    });
+    return map;
+  }, []);
+
   // Filtered & Sorted Products for Catalog
   const filteredProducts = useMemo(() => {
+    const targetSlugs = activeCategoryFilter ? (categorySlugMap[activeCategoryFilter] || [activeCategoryFilter]) : [];
+    const filterLower = activeCategoryFilter.toLowerCase();
+
     return productsList.filter(prod => {
-      const matchesSearch = prod.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                            prod.category.toLowerCase().includes(searchQuery.toLowerCase());
+      // 1. Search Query
+      const q = searchQuery.toLowerCase().trim();
+      const matchesSearch = !q || 
+                            prod.name.toLowerCase().includes(q) ||
+                            prod.category.toLowerCase().includes(q) ||
+                            prod.categories?.some(c => c.toLowerCase().includes(q)) ||
+                            prod.description?.toLowerCase().includes(q);
       
-      const matchesCat = !activeCategoryFilter || 
-                         prod.categorySlug === activeCategoryFilter || 
-                         prod.category.toLowerCase().includes(activeCategoryFilter.toLowerCase());
+      // 2. Category Filter
+      let matchesCat = true;
+      if (activeCategoryFilter) {
+        matchesCat = 
+          prod.categorySlugs?.some(slug => targetSlugs.includes(slug)) ||
+          targetSlugs.includes(prod.categorySlug) ||
+          prod.categories?.some(c => {
+            const cLower = c.toLowerCase();
+            return cLower === filterLower || 
+                   cLower.includes(filterLower) ||
+                   cLower.replace(/[^a-z0-9]+/g, '-') === filterLower;
+          }) ||
+          prod.category?.toLowerCase() === filterLower ||
+          prod.category?.toLowerCase().includes(filterLower);
+      }
       
+      // 3. Price Filter
       const matchesPrice = prod.price <= appliedPriceMax;
 
       return matchesSearch && matchesCat && matchesPrice;
@@ -204,7 +241,56 @@ export default function App() {
       if (sortBy === 'date') return b.id - a.id;
       return 0;
     });
-  }, [productsList, searchQuery, activeCategoryFilter, appliedPriceMax, sortBy]);
+  }, [productsList, searchQuery, activeCategoryFilter, appliedPriceMax, sortBy, categorySlugMap]);
+
+  // Pagination constants & slice
+  const PRODUCTS_PER_PAGE = 12;
+  const totalPages = Math.max(1, Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE));
+
+  const paginatedProducts = useMemo(() => {
+    const startIndex = (catalogPage - 1) * PRODUCTS_PER_PAGE;
+    return filteredProducts.slice(startIndex, startIndex + PRODUCTS_PER_PAGE);
+  }, [filteredProducts, catalogPage]);
+
+  // Reset page when filters change
+  useEffect(() => {
+    setCatalogPage(1);
+  }, [activeCategoryFilter, appliedPriceMax, searchQuery, sortBy]);
+
+  const handlePageChange = (pageNum) => {
+    if (pageNum >= 1 && pageNum <= totalPages) {
+      setCatalogPage(pageNum);
+      const targetEl = document.querySelector('.shop-subhead') || document.querySelector('.shop-view-wrapper');
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
+  const getPaginationItems = (current, total) => {
+    if (total <= 7) {
+      return Array.from({ length: total }, (_, i) => i + 1);
+    }
+    const pages = [];
+    if (current <= 4) {
+      for (let i = 1; i <= 5; i++) pages.push(i);
+      pages.push('...');
+      pages.push(total);
+    } else if (current >= total - 3) {
+      pages.push(1);
+      pages.push('...');
+      for (let i = total - 4; i <= total; i++) pages.push(i);
+    } else {
+      pages.push(1);
+      pages.push('...');
+      pages.push(current - 1);
+      pages.push(current);
+      pages.push(current + 1);
+      pages.push('...');
+      pages.push(total);
+    }
+    return pages;
+  };
 
   // Submit Order to Supabase
   const handleFinalOrderSubmit = async (e) => {
@@ -278,6 +364,7 @@ export default function App() {
               onSubmit={(e) => {
                 e.preventDefault();
                 setActiveCategoryFilter(selectedCategory);
+                setCatalogPage(1);
                 navigateTo('shop');
               }}
             >
@@ -287,6 +374,7 @@ export default function App() {
                 onChange={(e) => {
                   setSelectedCategory(e.target.value);
                   setActiveCategoryFilter(e.target.value);
+                  setCatalogPage(1);
                   navigateTo('shop');
                 }}
               >
@@ -302,6 +390,7 @@ export default function App() {
                 value={searchQuery}
                 onChange={(e) => {
                   setSearchQuery(e.target.value);
+                  setCatalogPage(1);
                   if (currentPageView !== 'shop') {
                     setCurrentPageView('shop');
                   }
@@ -573,7 +662,11 @@ export default function App() {
 
               <div className="shop-controls">
                 <span className="result-count">
-                  Showing 1–{filteredProducts.length} of {productsList.length} results
+                  {filteredProducts.length === 0 ? (
+                    'Showing 0 results'
+                  ) : (
+                    `Showing ${(catalogPage - 1) * PRODUCTS_PER_PAGE + 1}–${Math.min(catalogPage * PRODUCTS_PER_PAGE, filteredProducts.length)} of ${filteredProducts.length} results`
+                  )}
                 </span>
                 <select 
                   className="sort-select" 
@@ -603,7 +696,10 @@ export default function App() {
                     <li className="category-item">
                       <div 
                         className={`category-header ${activeCategoryFilter === '' ? 'active' : ''}`}
-                        onClick={() => setActiveCategoryFilter('')}
+                        onClick={() => {
+                          setActiveCategoryFilter('');
+                          setCatalogPage(1);
+                        }}
                       >
                         <span>All Products</span>
                         <span style={{ fontSize: '12px', color: '#999' }}>({productsList.length})</span>
@@ -617,9 +713,15 @@ export default function App() {
                         <li key={cat.id} className="category-item">
                           <div 
                             className={`category-header ${isActive ? 'active' : ''}`}
-                            onClick={() => setActiveCategoryFilter(cat.id)}
+                            onClick={() => {
+                              setActiveCategoryFilter(cat.id);
+                              setCatalogPage(1);
+                            }}
                           >
                             <span>{cat.name}</span>
+                            <span style={{ fontSize: '12px', color: '#999', marginLeft: '6px', marginRight: 'auto' }}>
+                              ({cat.count})
+                            </span>
                             {cat.children && (
                               <button 
                                 className="category-toggle-btn"
@@ -637,12 +739,21 @@ export default function App() {
                                 <li key={sub.id} className="subcategory-item">
                                   <a 
                                     href={`#${sub.id}`} 
+                                    style={{
+                                      display: 'flex',
+                                      justifyContent: 'space-between',
+                                      alignItems: 'center',
+                                      color: activeCategoryFilter === sub.id ? 'var(--primary-color)' : undefined,
+                                      fontWeight: activeCategoryFilter === sub.id ? '700' : 'normal'
+                                    }}
                                     onClick={(e) => {
                                       e.preventDefault();
-                                      setActiveCategoryFilter(sub.name);
+                                      setActiveCategoryFilter(sub.id);
+                                      setCatalogPage(1);
                                     }}
                                   >
-                                    {sub.name}
+                                    <span>{sub.name}</span>
+                                    <span style={{ fontSize: '11px', color: '#999' }}>({sub.count})</span>
                                   </a>
                                 </li>
                               ))}
@@ -737,7 +848,7 @@ export default function App() {
 
                 {/* Grid */}
                 <div className="products-grid">
-                  {filteredProducts.map(product => {
+                  {paginatedProducts.map(product => {
                     const isFavorited = wishlist.includes(product.id);
 
                     return (
@@ -845,39 +956,48 @@ export default function App() {
                 )}
 
                 {/* Pagination */}
-                <div className="pagination-container">
-                  <ul className="pagination-list">
-                    {[1, 2, 3, 4].map(num => (
-                      <li key={num}>
-                        <button 
-                          className={`page-num-btn ${catalogPage === num ? 'active' : ''}`}
-                          onClick={() => setCatalogPage(num)}
-                        >
-                          {num}
-                        </button>
-                      </li>
-                    ))}
-                    <li><span style={{ padding: '0 4px', color: '#888' }}>…</span></li>
-                    {[11, 12, 13].map(num => (
-                      <li key={num}>
-                        <button 
-                          className={`page-num-btn ${catalogPage === num ? 'active' : ''}`}
-                          onClick={() => setCatalogPage(num)}
-                        >
-                          {num}
-                        </button>
-                      </li>
-                    ))}
-                    <li>
-                      <button 
-                        className="page-num-btn"
-                        onClick={() => setCatalogPage(p => Math.min(p + 1, 13))}
-                      >
-                        Next &gt;
-                      </button>
-                    </li>
-                  </ul>
-                </div>
+                {totalPages > 1 && (
+                  <div className="pagination-container">
+                    <ul className="pagination-list">
+                      {catalogPage > 1 && (
+                        <li>
+                          <button 
+                            className="page-num-btn prev-btn"
+                            onClick={() => handlePageChange(catalogPage - 1)}
+                            aria-label="Previous page"
+                          >
+                            &lt; Prev
+                          </button>
+                        </li>
+                      )}
+                      {getPaginationItems(catalogPage, totalPages).map((item, idx) => (
+                        <li key={idx}>
+                          {item === '...' ? (
+                            <span style={{ padding: '0 6px', color: '#888' }}>…</span>
+                          ) : (
+                            <button 
+                              className={`page-num-btn ${catalogPage === item ? 'active' : ''}`}
+                              onClick={() => handlePageChange(item)}
+                            >
+                              {item}
+                            </button>
+                          )}
+                        </li>
+                      ))}
+                      {catalogPage < totalPages && (
+                        <li>
+                          <button 
+                            className="page-num-btn next-btn"
+                            onClick={() => handlePageChange(catalogPage + 1)}
+                            aria-label="Next page"
+                          >
+                            Next &gt;
+                          </button>
+                        </li>
+                      )}
+                    </ul>
+                  </div>
+                )}
               </div>
             </div>
           </main>
