@@ -17,6 +17,7 @@ import AboutUsPage from './components/AboutUsPage';
 import TestimonialPage from './components/TestimonialPage';
 import ContactUsPage from './components/ContactUsPage';
 import CardPaymentPage from './components/CardPaymentPage';
+import { FacebookIcon, InstagramIcon } from './components/SocialIcons';
 import { 
   Search, 
   ShoppingBasket, 
@@ -341,9 +342,39 @@ export default function App() {
       {/* 1. TOP BAR */}
       <div className="top-bar">
         <div className="container top-bar-content">
-          <a href="mailto:info@roidstarlabs.com">
-            Email: info@roidstarlabs.com
-          </a>
+          <div className="top-bar-left">
+            <a href="mailto:info@roidstacklab.com" className="top-bar-link">
+              <Mail size={13} />
+              <span>Email: info@roidstacklab.com</span>
+            </a>
+            <span className="top-bar-separator">|</span>
+            <a href="tel:+19176650015" className="top-bar-link">
+              <Phone size={13} />
+              <span>USA Phone: +1 (917) 665-0015</span>
+            </a>
+          </div>
+          <div className="top-bar-socials">
+            <a 
+              href="https://www.facebook.com/share/19h9qgRnYw/?mibextid=wwXIfr" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="top-bar-social-link" 
+              aria-label="Facebook"
+              title="Facebook"
+            >
+              <FacebookIcon size={14} color="#ffffff" />
+            </a>
+            <a 
+              href="https://www.instagram.com/roidstack?stkn=MTV3czU5MzRvZnoycQ%3D%3D&utm_source=qr" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="top-bar-social-link" 
+              aria-label="Instagram"
+              title="Instagram"
+            >
+              <InstagramIcon size={14} color="#ffffff" />
+            </a>
+          </div>
         </div>
       </div>
 
@@ -1068,7 +1099,7 @@ export default function App() {
                   Your satisfaction and peace of mind are our top priorities. If your shipment is damaged in transit or encounters delivery discrepancies, our team offers reshipment guarantees upon verification of the tracking status.
                 </p>
                 <p>
-                  Due to the nature of pharmaceutical grade products and safety regulations, items once delivered and unsealed cannot be returned into stock. Please reach out to <strong>info@roidstarlabs.com</strong> for assistance with any order issues.
+                  Due to the nature of pharmaceutical grade products and safety regulations, items once delivered and unsealed cannot be returned into stock. Please reach out to <strong><a href="mailto:info@roidstacklab.com">info@roidstacklab.com</a></strong> for assistance with any order issues.
                 </p>
               </>
             )}
@@ -1224,9 +1255,33 @@ export default function App() {
             <h4 className="footer-widget-heading" style={{ color: '#fff' }}>Contact info</h4>
             <div className="footer-divider"></div>
             <div className="contact-info-list">
-              <div>Email: <a href="mailto:info@roidstarlabs.com">info@roidstarlabs.com</a></div>
+              <div>Email: <a href="mailto:info@roidstacklab.com">info@roidstacklab.com</a></div>
               <div>Address: USA</div>
-              <div>Num: (719) 246-6260</div>
+              <div>Num: <a href="tel:+19176650015">+1 (917) 665-0015</a></div>
+              <div className="footer-social-row" style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '14px' }}>
+                <a 
+                  href="https://www.facebook.com/share/19h9qgRnYw/?mibextid=wwXIfr" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="footer-social-icon" 
+                  aria-label="Facebook"
+                  title="Facebook"
+                  style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '32px', height: '32px', borderRadius: '50%', background: '#1877F2', color: '#fff', transition: 'transform 0.2s' }}
+                >
+                  <FacebookIcon size={16} color="#fff" />
+                </a>
+                <a 
+                  href="https://www.instagram.com/roidstack?stkn=MTV3czU5MzRvZnoycQ%3D%3D&utm_source=qr" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="footer-social-icon" 
+                  aria-label="Instagram"
+                  title="Instagram"
+                  style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '32px', height: '32px', borderRadius: '50%', background: 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)', color: '#fff', transition: 'transform 0.2s' }}
+                >
+                  <InstagramIcon size={16} color="#fff" />
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -1235,7 +1290,7 @@ export default function App() {
       {/* ABSOLUTE COPYRIGHT FOOTER */}
       <div className="footer-absolute">
         <div className="container">
-          Copyright 2026 © <strong><a href="mailto:info@roidstarlabs.com">Email:info@roidstarlabs.com</a></strong>
+          Copyright 2026 © <strong><a href="mailto:info@roidstacklab.com">Email:info@roidstacklab.com</a></strong>
         </div>
       </div>
 
@@ -1249,7 +1304,7 @@ export default function App() {
       </button>
 
       <a 
-        href="https://wa.me/17192466260" 
+        href="https://wa.me/19176650015" 
         target="_blank" 
         rel="noopener noreferrer" 
         className="whatsapp-float-btn"

@@ -75,16 +75,59 @@ img {
 
 .top-bar-content {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-.top-bar a {
+.top-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.top-bar-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   color: #ffffff;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
 }
 
-.top-bar a:hover {
+.top-bar-link:hover {
+  opacity: 0.9;
   text-decoration: underline;
+}
+
+.top-bar-separator {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+}
+
+.top-bar-socials {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.top-bar-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.top-bar-social-link:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px);
 }
 
 /* ================= MAIN HEADER ================= */
@@ -906,6 +949,11 @@ img {
 
 .contact-info-list a {
   color: var(--topbar-bg);
+}
+
+.footer-social-icon:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.15);
 }
 
 /* ================= ABSOLUTE BOTTOM FOOTER ================= */

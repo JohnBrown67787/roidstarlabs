@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle2, MessageCircle } from 'lucide-react';
+import { FacebookIcon, InstagramIcon } from './SocialIcons';
 
 export default function ContactUsPage({ onNavigateToShop, onShowToast }) {
   const [formData, setFormData] = useState({
@@ -19,7 +20,7 @@ export default function ContactUsPage({ onNavigateToShop, onShowToast }) {
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
-      onShowToast?.('Thank you! Your inquiry has been sent to info@roidstarlabs.com.');
+      onShowToast?.('Thank you! Your inquiry has been sent to info@roidstacklab.com.');
     }, 800);
   };
 
@@ -196,7 +197,7 @@ export default function ContactUsPage({ onNavigateToShop, onShowToast }) {
                   </div>
                   <div>
                     <strong>Email Support:</strong>
-                    <p><a href="mailto:info@roidstarlabs.com">info@roidstarlabs.com</a></p>
+                    <p><a href="mailto:info@roidstacklab.com">info@roidstacklab.com</a></p>
                   </div>
                 </div>
 
@@ -206,7 +207,44 @@ export default function ContactUsPage({ onNavigateToShop, onShowToast }) {
                   </div>
                   <div>
                     <strong>Direct Helpline:</strong>
-                    <p><a href="tel:+17192466260">+1 (719) 246-6260</a></p>
+                    <p><a href="tel:+19176650015">+1 (917) 665-0015</a></p>
+                  </div>
+                </div>
+
+                <div className="contact-detail-item">
+                  <div className="detail-icon-circle" style={{ background: '#1877F2', color: '#fff' }}>
+                    <FacebookIcon size={18} color="#fff" />
+                  </div>
+                  <div>
+                    <strong>Facebook:</strong>
+                    <p>
+                      <a 
+                        href="https://www.facebook.com/share/19h9qgRnYw/?mibextid=wwXIfr" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        style={{ wordBreak: 'break-all' }}
+                      >
+                        facebook.com/share/19h9qgRnYw
+                      </a>
+                    </p>
+                  </div>
+                </div>
+
+                <div className="contact-detail-item">
+                  <div className="detail-icon-circle" style={{ background: 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)', color: '#fff' }}>
+                    <InstagramIcon size={18} color="#fff" />
+                  </div>
+                  <div>
+                    <strong>Instagram:</strong>
+                    <p>
+                      <a 
+                        href="https://www.instagram.com/roidstack?stkn=MTV3czU5MzRvZnoycQ%3D%3D&utm_source=qr" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                      >
+                        @roidstack
+                      </a>
+                    </p>
                   </div>
                 </div>
 
@@ -241,7 +279,7 @@ export default function ContactUsPage({ onNavigateToShop, onShowToast }) {
                   Speak directly with a support agent on WhatsApp for cycle guidance and payment confirmation.
                 </p>
                 <a 
-                  href="https://wa.me/17192466260" 
+                  href="https://wa.me/19176650015" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="whatsapp-inline-btn"
